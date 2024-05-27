@@ -3,15 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Goblin
+  - FlyingEye
+  - Mushroom
+  - Skeleton
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - second
   - Water
   - UI
-  - 
+  - damage
   - 
   - 
   - 
@@ -38,6 +42,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3533210291
+    locked: 0
+  - name: second
+    uniqueID: 3224845463
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: number1
+    uniqueID: 3596182185
     locked: 0
