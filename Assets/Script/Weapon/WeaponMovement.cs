@@ -5,18 +5,20 @@ using UnityEngine;
 public class WeaponMovement : MonoBehaviour
 {
     SpriteRenderer weapon;
-    public static float angle;
-    public GameObject bullet;
+    float angle;
     public Transform barrel;
+    Vector3 direction;
+    ObjectPool bulletPool;
     void Start()
     {
         weapon = GetComponent<SpriteRenderer>();
+        bulletPool = GetComponent<ObjectPool>();
     }
     public void AngleToCursor()
     {
         Vector3 mouseScreenPosition = Input.mousePosition;
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-        Vector3 direction = mouseWorldPosition - transform.position;
+        direction = mouseWorldPosition - transform.position;
         direction.z = 0;
         angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -34,14 +36,13 @@ public class WeaponMovement : MonoBehaviour
     }
     void ShootByCklick()
     {
-            if (Input.GetMouseButtonDown(0))
-            {
-                GameObject shootingBullet = Instantiate(bullet);
-                shootingBullet.transform.localScale = bullet.transform.lossyScale;
-                shootingBullet.SetActive(true);
-                shootingBullet.transform.parent = barrel;
-                shootingBullet.transform.position = barrel.position;
-            }
+        GameObject shootingBullet = bulletPool.SharedInstance.GetPooledObject();
+        if (shootingBullet != null)
+        {
+            shootingBullet.transform.position = barrel.position;
+            shootingBullet.SetActive(true);
+            StartCoroutine(BulletLiveTime(shootingBullet));
+        }
     }
     void Update()
     {
@@ -49,6 +50,14 @@ public class WeaponMovement : MonoBehaviour
 
         FlipWeapon();
 
-        ShootByCklick();
+        if (Input.GetMouseButtonDown(0))
+        {
+            ShootByCklick();
+        }
+    }
+    IEnumerator BulletLiveTime(GameObject bullet)
+    {
+        yield return new WaitForSeconds(2f);
+        bullet.SetActive(false);
     }
 }

@@ -6,23 +6,25 @@ public class EnemyMovement : MonoBehaviour
 {
     public GameObject player;
     SpriteRenderer enemySprite;
-    public GameObject XPgem;
     public float enemySpeed;
     public float enemyDamage;
     public float enemyHP;
+    ObjectPool XPgem;
+    public GameObject baseGems;
     void Start()
     {
         enemySprite = GetComponent<SpriteRenderer>();
+        XPgem = baseGems.GetComponent<ObjectPool>();
     }
 
     void FixedUpdate()
     {
         FollowByPalyer();
-        if(gameObject.transform.childCount == 0)
+        if(enemyHP == 0)
         {
-            GameObject gem = Instantiate(XPgem);
-            gem.SetActive(true);
+            GameObject gem = XPgem.SharedInstance.GetPooledObject();
             gem.transform.position = gameObject.transform.position;
+            gem.SetActive(true);
             gameObject.SetActive(false);
         }
     }
@@ -40,5 +42,9 @@ public class EnemyMovement : MonoBehaviour
         }
         Vector3 velocity = direction.normalized * enemySpeed * Time.deltaTime;
         transform.position = transform.position + velocity;
+    }
+    public float EnemyDamage()
+    {
+        return enemyDamage;
     }
 }

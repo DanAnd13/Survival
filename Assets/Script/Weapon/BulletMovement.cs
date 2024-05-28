@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -8,21 +9,25 @@ public class BulletMovement : MonoBehaviour
 {
     float bulletSpeed = 60f;
     [HideInInspector]
-    public float bulletDamage = 5f;
+    public static float bulletDamage = 5f;
     Vector3 direction;
-    Vector3 mouseWorldPosition;
-    void Start()
+    private void OnEnable()
     {
         Vector3 mouseScreenPosition = Input.mousePosition;
-        mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
         mouseWorldPosition.y -= 2;
-        transform.rotation = Quaternion.Euler(0, 0, WeaponMovement.angle);
         direction = mouseWorldPosition - transform.position;
+        direction.z = 0;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
     void FixedUpdate()
     {
         Vector3 velocity = direction.normalized * bulletSpeed * Time.deltaTime;
         transform.position = transform.position + velocity;
-        Destroy(gameObject, 1f);
+    }
+    public static float BulletDamage()
+    {
+        return bulletDamage;
     }
 }

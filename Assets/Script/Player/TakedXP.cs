@@ -7,10 +7,10 @@ public class TakedXP : MonoBehaviour
     [HideInInspector] 
     public static float radius = 2.8f;
     float newLevel = 10f;
-    float gemXPValue;
+    float gemXPSum = 0f;
     CircleCollider2D circleCollider;
     bool pause = false;
-    public TakedElements elements;
+    BonusElements BonusElements;
     void Start()
     {
         circleCollider = GetComponent<CircleCollider2D>();
@@ -22,20 +22,32 @@ public class TakedXP : MonoBehaviour
     {
         circleCollider.radius = radius;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(collision.gameObject);
-        gemXPValue ++;
-        if(IsLevelUp())
+        BonusElements = collision.gameObject.GetComponent<BonusElements>();
+        if (BonusElements != null)
         {
-            //
-            //newLevel += newLevel;
-            //gemXPValue = 0;
+            if (BonusElements.element == BonusElements.TakedElements.baseXP)
+            {
+                collision.gameObject.SetActive(false);
+                gemXPSum++;
+            }
+            else if (BonusElements.element == BonusElements.TakedElements.bossXP)
+            {
+                collision.gameObject.SetActive(false);
+                gemXPSum += 5f;
+            }
+            if (IsLevelUp())
+            {
+                //
+                //newLevel += newLevel;
+                //gemXPValue = 0;
+            }
         }
     }
     bool IsLevelUp()
     {
-        if (gemXPValue == newLevel)
+        if (gemXPSum == newLevel)
         {
             return true;
         }
@@ -44,10 +56,5 @@ public class TakedXP : MonoBehaviour
             return false;
         }
     }
-
-}
-public enum TakedElements{
-    XP,
-    bust,
 
 }

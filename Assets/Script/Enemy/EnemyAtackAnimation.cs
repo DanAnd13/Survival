@@ -26,12 +26,6 @@ public class EnemyAtackAnimation : MonoBehaviour
                 enemyAtack.SetBool("isSkeletonAtackRadius", true);
                 break;
         }
-        
-        /*PlayerMovement.playerHP -= EnemyMovement.enemyDamage;
-        if(PlayerMovement.playerHP <= 0)
-        {
-           //зупинить гру, поразка
-        }*/
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
