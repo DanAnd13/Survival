@@ -4,45 +4,62 @@ using UnityEngine;
 
 public class EnemyAtackAnimation : MonoBehaviour
 {
-    public Animator enemyAtack;
-    void Start()
+    Animator enemyAtack;
+    EnemyMovement enemyType;
+    Coroutine damageCoroutine;
+    void OnEnable()
     {
-        enemyAtack = GetComponent<Animator>();   
+        enemyAtack = GetComponent<Animator>(); 
+        enemyType = GetComponent<EnemyMovement>();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        switch (gameObject.tag)
+        string attackParameter = GetAttackParameter(enemyType.type);
+        if (attackParameter != null)
         {
-            case "Goblin":
-                enemyAtack.SetBool("isGoblinAtackRadius", true);
-                break;
-            case "FlyingEye":
-                enemyAtack.SetBool("isEyeAtackRadius", true);
-                break;
-            case "Mushroom":
-                enemyAtack.SetBool("isMushroomAtackRadius", true);
-                break;
-            case "Skeleton":
-                enemyAtack.SetBool("isSkeletonAtackRadius", true);
-                break;
+            enemyAtack.SetBool(attackParameter, true);
+            damageCoroutine = StartCoroutine(PlayerTakingDamage());
         }
     }
+
     private void OnCollisionExit2D(Collision2D collision)
     {
-        switch (gameObject.tag)
+        string attackParameter = GetAttackParameter(enemyType.type);
+        if (attackParameter != null)
         {
-            case "Goblin":
-                enemyAtack.SetBool("isGoblinAtackRadius", false);
-                break;
-            case "FlyingEye":
-                enemyAtack.SetBool("isEyeAtackRadius", false);
-                break;
-            case "Mushroom":
-                enemyAtack.SetBool("isMushroomAtackRadius", false);
-                break;
-            case "Skeleton":
-                enemyAtack.SetBool("isSkeletonAtackRadius", false);
-                break;
+            enemyAtack.SetBool(attackParameter, false);
+            StopCoroutine(damageCoroutine);
+            damageCoroutine = null;
+        }
+    }
+
+    private string GetAttackParameter(EnemyMovement.TypeOfEnemy type)
+    {
+        switch (type)
+        {
+            case EnemyMovement.TypeOfEnemy.goblin:
+            case EnemyMovement.TypeOfEnemy.bossGoblin:
+                return "isGoblinAtackRadius";
+            case EnemyMovement.TypeOfEnemy.flyingEye:
+            case EnemyMovement.TypeOfEnemy.bossFlyingEye:
+                return "isEyeAtackRadius";
+            case EnemyMovement.TypeOfEnemy.mushroom:
+            case EnemyMovement.TypeOfEnemy.bossMushroom:
+                return "isMushroomAtackRadius";
+            case EnemyMovement.TypeOfEnemy.skeleton:
+            case EnemyMovement.TypeOfEnemy.bossSkeleton:
+                return "isSkeletonAtackRadius";
+            default:
+                return null;
+        }
+    }
+
+    IEnumerator PlayerTakingDamage()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.45f);
+            PlayerMovement.playerHP -= enemyType.enemyDamage;
         }
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TakedXP : MonoBehaviour
 {
-    [HideInInspector] 
     public static float radius = 2.8f;
     float newLevel = 10f;
     float gemXPSum = 0f;

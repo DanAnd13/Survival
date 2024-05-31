@@ -14,13 +14,11 @@ public class EnemyTakingDamage : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        EnemyMovement.enemyHP -= BulletMovement.BulletDamage();
         GameObject damage = damageAnimationPool.SharedInstance.GetPooledObject();
         if (damage != null)
         {
@@ -28,11 +26,15 @@ public class EnemyTakingDamage : MonoBehaviour
             damage.SetActive(true);
             StartCoroutine(DamageAnimationTime(damage));
             collision.gameObject.SetActive(false);
+
         }
     }
     IEnumerator DamageAnimationTime(GameObject damageAnimation)
     {
         yield return new WaitForSeconds(0.1f);
         damageAnimation.SetActive(false);
+        //yield return null;
+        EnemyMovement.enemyHP -= BulletMovement.bulletDamage;
+
     }
 }

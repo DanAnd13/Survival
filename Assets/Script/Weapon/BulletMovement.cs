@@ -8,7 +8,6 @@ using UnityEngine.UIElements;
 public class BulletMovement : MonoBehaviour
 {
     float bulletSpeed = 60f;
-    [HideInInspector]
     public static float bulletDamage = 5f;
     Vector3 direction;
     private void OnEnable()

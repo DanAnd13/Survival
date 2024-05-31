@@ -29,6 +29,11 @@ public class PlayerMovement : MonoBehaviour
                 player.flipX = true;
             }
         }
+        if(playerHP <= 0)
+        {
+            gameObject.SetActive(false);
+            Pause.gamePause = true;
+        }
     }
     private void FixedUpdate()
     {

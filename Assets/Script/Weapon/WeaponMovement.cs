@@ -9,10 +9,12 @@ public class WeaponMovement : MonoBehaviour
     public Transform barrel;
     Vector3 direction;
     ObjectPool bulletPool;
+    float timer;
+    float reloadTime = 0.2f;
     void Start()
     {
         weapon = GetComponent<SpriteRenderer>();
-        bulletPool = GetComponent<ObjectPool>();
+        bulletPool = GetComponentInChildren<ObjectPool>();
     }
     public void AngleToCursor()
     {
@@ -50,9 +52,17 @@ public class WeaponMovement : MonoBehaviour
 
         FlipWeapon();
 
-        if (Input.GetMouseButtonDown(0))
+        if (timer <= 0f)
         {
-            ShootByCklick();
+            if (Input.GetMouseButtonDown(0))
+            {
+                ShootByCklick();
+                timer = reloadTime;
+            }
+        }
+        else
+        {
+            timer -= Time.deltaTime;
         }
     }
     IEnumerator BulletLiveTime(GameObject bullet)
