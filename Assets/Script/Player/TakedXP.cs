@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TakedXP : MonoBehaviour
 {
+    public TextMeshProUGUI XPUI;
+    public GameObject LevelUpUI;
     public static float radius = 2.8f;
     float newLevel = 10f;
     float gemXPSum = 0f;
     CircleCollider2D circleCollider;
-    bool pause = false;
     BonusElements BonusElements;
     void Start()
     {
@@ -20,6 +22,7 @@ public class TakedXP : MonoBehaviour
     void Update()
     {
         circleCollider.radius = radius;
+        XPUI.text = "XP: " + gemXPSum + " / "+ newLevel;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -38,15 +41,17 @@ public class TakedXP : MonoBehaviour
             }
             if (IsLevelUp())
             {
-                //
-                //newLevel += newLevel;
-                //gemXPValue = 0;
+                LevelUpUI.SetActive(true);
+                Pause.gamePause = true;
+                CrossHair.StandartCursor();
+                gemXPSum -= newLevel;
+                newLevel += newLevel;
             }
         }
     }
     bool IsLevelUp()
     {
-        if (gemXPSum == newLevel)
+        if (gemXPSum >= newLevel)
         {
             return true;
         }

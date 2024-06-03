@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Stopwatch : MonoBehaviour
 {
-    //public TextMeshProUGUI stopwatchText;  // Текстовий компонент для відображення часу
-    //public TextMeshProUGUI killCount;
+    public TextMeshProUGUI stopwatchText;  // Текстовий компонент для відображення часу
+    public static string stopwatchValue = "";
     public static int kills;
     private float elapsedTime = 0f;  // Відрахований час
     private bool isRunning = false;  // Стан секундоміра
@@ -31,7 +31,6 @@ public class Stopwatch : MonoBehaviour
                 EnemyMovement.bonusEnemySpeed += 1f;
             }
             UpdateStopwatchDisplay();
-            UpdateKillCountDisplay();
         }
     }
 
@@ -58,16 +57,12 @@ public class Stopwatch : MonoBehaviour
     // Метод для оновлення відображення часу на UI
     void UpdateStopwatchDisplay()
     {
-        /*if (stopwatchText != null)
-        {*/
+        if (stopwatchText != null)
+        {
             int minutes = Mathf.FloorToInt(elapsedTime / 60F);
             int seconds = Mathf.FloorToInt(elapsedTime % 60F);
-            //stopwatchText.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
-        //}
-    }
-    //вивід кількості кілів
-    void UpdateKillCountDisplay()
-    {
-        //killCount.text = kills.ToString();
+            stopwatchText.text = "Life time: " + string.Format("{0:00}:{1:00}", minutes, seconds);
+            stopwatchValue = stopwatchText.text;
+        }
     }
 }

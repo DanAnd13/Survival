@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static float playerMoveSpeed = 20f;
-    public static float playerHP = 50f;
+    public static float playerMoveSpeed;
+    public static float playerHP;
+    public TextMeshProUGUI playerHPUI;
+    public LoseGame loseGame;
     Rigidbody2D Rigidbody2D;
     Vector2 moveDir;
     SpriteRenderer player;
@@ -13,10 +16,12 @@ public class PlayerMovement : MonoBehaviour
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
         player = GetComponent<SpriteRenderer>();
-
+        playerHP = 50f;
+        playerMoveSpeed = 20f;
     }
     void Update()
     {
+        playerHPUI.text = "Health: " + playerHP;
         InputMove();
         if(moveDir.x !=0 || moveDir.y !=0)
         {
@@ -32,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
         if(playerHP <= 0)
         {
             gameObject.SetActive(false);
+            loseGame.LoseValues();
             Pause.gamePause = true;
         }
     }

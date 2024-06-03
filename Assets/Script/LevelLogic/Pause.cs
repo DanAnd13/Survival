@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pause : MonoBehaviour
 {
     public static bool gamePause = false;
+    public GameObject pauseMenu;
     void Start()
     {
         gamePause = false;
@@ -13,6 +14,7 @@ public class Pause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PauseByClick();
         if (gamePause)
         {
             Time.timeScale = 0;
@@ -21,5 +23,18 @@ public class Pause : MonoBehaviour
         {
             Time.timeScale = 1;
         }
+    }
+    public void PauseByClick()
+    {
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            gamePause = true;
+            pauseMenu.SetActive(true);
+            CrossHair.StandartCursor();
+        }
+    }
+    public void ReturnPause(bool value)
+    {
+        gamePause = value;
     }
 }

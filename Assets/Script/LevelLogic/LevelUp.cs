@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class LevelUp : MonoBehaviour
 {
-    public void IncreaseXPTakedRadius()
+    public void IncreaseXPTakingRadius()
     {
-        TakedXP.radius += 0.4f;
+        TakedXP.radius += 0.5f;
     }
     public void IncreasePlayerDamage()
     {
@@ -14,7 +14,7 @@ public class LevelUp : MonoBehaviour
     }
     public void IncreasePlayerSpeed()
     {
-        PlayerMovement.playerMoveSpeed += 3f;
+        PlayerMovement.playerMoveSpeed += 2f;
     }
     public void IncreasePlayerHP()
     {
