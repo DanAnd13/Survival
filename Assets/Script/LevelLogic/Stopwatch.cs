@@ -6,7 +6,7 @@ using UnityEngine;
 public class Stopwatch : MonoBehaviour
 {
     public TextMeshProUGUI stopwatchText;  // Текстовий компонент для відображення часу
-    public static string stopwatchValue = "";
+    public static string stopwatchValue = "Life time: 00:00";
     public static int kills;
     private float elapsedTime = 0f;  // Відрахований час
     private bool isRunning = false;  // Стан секундоміра
@@ -33,7 +33,6 @@ public class Stopwatch : MonoBehaviour
             UpdateStopwatchDisplay();
         }
     }
-
     // Метод для запуску секундоміра
     public void StartStopwatch()
     {

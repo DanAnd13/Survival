@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyAtackAnimation : MonoBehaviour
 {
     public GameObject playerDamageAnimation;
+    public AudioSource playerTakingDamage;
     Animator enemyAtack;
     EnemyMovement enemyType;
     Coroutine damageCoroutine;
@@ -31,6 +32,7 @@ public class EnemyAtackAnimation : MonoBehaviour
             enemyAtack.SetBool(attackParameter, false);
             StopCoroutine(damageCoroutine);
             damageCoroutine = null;
+            playerDamageAnimation.SetActive(false);
         }
     }
 
@@ -61,6 +63,7 @@ public class EnemyAtackAnimation : MonoBehaviour
         {
             yield return new WaitForSeconds(0.45f);
             PlayerMovement.playerHP -= enemyType.enemyDamage;
+            playerTakingDamage.Play();
             playerDamageAnimation.SetActive(true);
             yield return new WaitForSeconds(0.1f);
             playerDamageAnimation.SetActive(false);

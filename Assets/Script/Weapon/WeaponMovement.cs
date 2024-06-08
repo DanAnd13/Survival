@@ -7,6 +7,7 @@ public class WeaponMovement : MonoBehaviour
     SpriteRenderer weapon;
     float angle;
     public Transform barrel;
+    public AudioSource gunShot;
     Vector3 direction;
     ObjectPool bulletPool;
     float timer;
@@ -42,6 +43,7 @@ public class WeaponMovement : MonoBehaviour
         if (shootingBullet != null)
         {
             shootingBullet.transform.position = barrel.position;
+            gunShot.Play();
             shootingBullet.SetActive(true);
             StartCoroutine(BulletLiveTime(shootingBullet));
         }

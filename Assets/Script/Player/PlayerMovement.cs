@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
         {
             gameObject.SetActive(false);
             loseGame.LoseValues();
+            Rating.WriteToJSON();
             Pause.gamePause = true;
         }
     }
