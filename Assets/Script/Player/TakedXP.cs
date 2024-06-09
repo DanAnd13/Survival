@@ -7,14 +7,17 @@ public class TakedXP : MonoBehaviour
 {
     public TextMeshProUGUI XPUI;
     public GameObject LevelUpUI;
-    public static float radius = 2.8f;
-    float newLevel = 10f;
-    float gemXPSum = 0f;
+    public static float radius;
+    float newLevel;
+    float gemXPSum;
     CircleCollider2D circleCollider;
     BonusElements BonusElements;
     void Start()
     {
         circleCollider = GetComponent<CircleCollider2D>();
+        radius = 2.8f;
+        newLevel = 10f;
+        gemXPSum = 0f;
         circleCollider.radius = radius;
     }
 

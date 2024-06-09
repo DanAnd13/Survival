@@ -8,8 +8,12 @@ using UnityEngine.UIElements;
 public class BulletMovement : MonoBehaviour
 {
     float bulletSpeed = 60f;
-    public static float bulletDamage = 5f;
+    public static float bulletDamage;
     Vector3 direction;
+    private void Start()
+    {
+        bulletDamage = 5f;
+    }
     private void OnEnable()
     {
         Vector3 mouseScreenPosition = Input.mousePosition;

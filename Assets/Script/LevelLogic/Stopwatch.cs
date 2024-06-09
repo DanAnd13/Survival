@@ -8,27 +8,29 @@ public class Stopwatch : MonoBehaviour
     public TextMeshProUGUI stopwatchText;  // Текстовий компонент для відображення часу
     public static string stopwatchValue = "Life time: 00:00";
     public static int kills;
-    private float elapsedTime = 0f;  // Відрахований час
-    private bool isRunning = false;  // Стан секундоміра
+    private float elapsedTime;  // Відрахований час
+    private bool isRunning;  // Стан секундоміра
+    private float nextPowerUpTime;
 
-    private void Start()
+    void Start()
     {
         ResetStopwatch();
         StartStopwatch();
         kills = 0;
     }
-    void Update()
+    void FixedUpdate()
     {
         if (isRunning)
         {
             elapsedTime += Time.deltaTime;
-            //підсилення ворогів кожну хвилину
-            if (elapsedTime % 60f == 0)
+            // Підсилення ворогів кожну хвилину
+            if (elapsedTime >= nextPowerUpTime)
             {
                 Timer.delay = Mathf.Max(1f, Timer.delay - 0.2f);
                 EnemyMovement.bonusEnemyHP += 5f;
                 EnemyMovement.bonusEnemyDamage += 5f;
                 EnemyMovement.bonusEnemySpeed += 1f;
+                nextPowerUpTime += 60f;  // Встановити час наступного підсилення через 60 секунд
             }
             UpdateStopwatchDisplay();
         }
@@ -50,6 +52,7 @@ public class Stopwatch : MonoBehaviour
     {
         isRunning = false;
         elapsedTime = 0f;
+        nextPowerUpTime = 60f;
         UpdateStopwatchDisplay();
     }
 

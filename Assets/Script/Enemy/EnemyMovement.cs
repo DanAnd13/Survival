@@ -8,7 +8,7 @@ public class EnemyMovement : MonoBehaviour
     SpriteRenderer enemySprite;
     [HideInInspector]
     public float enemySpeed, enemyDamage, enemyHP;
-    public static float bonusEnemySpeed = 0f, bonusEnemyDamage = 0f, bonusEnemyHP = 0f;
+    public static float bonusEnemySpeed, bonusEnemyDamage, bonusEnemyHP;
     ObjectPool XPgem;
     public GameObject baseGems;
     public TypeOfEnemy type;
@@ -22,6 +22,12 @@ public class EnemyMovement : MonoBehaviour
         bossFlyingEye,
         bossMushroom,
         bossSkeleton
+    }
+    private void Start()
+    {
+        bonusEnemySpeed = 0;
+        bonusEnemyDamage = 0;
+        bonusEnemyHP = 0;
     }
     void OnEnable()
     {

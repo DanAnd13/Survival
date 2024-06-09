@@ -37,8 +37,8 @@ public class Rating : MonoBehaviour
         newUser.date = DateTime.Now.ToString("dd.MM.yyyy");
         newUser.kills = Stopwatch.kills;
         newUser.lifeTime = Stopwatch.stopwatchValue;
-        users.Add(newUser);
-        users.Sort((a, b) => b.date.CompareTo(a.date));
+        users.Insert(0, newUser);
+        users.Add(new Leaderboard { date = "", kills = 0, lifeTime = "" });
 
         json = JsonUtility.ToJson(new LeaderboardListWrapper(users));
         File.WriteAllText(filePath, json);
@@ -51,6 +51,7 @@ public class Rating : MonoBehaviour
         {
             ratingText.text += user.date + ". " + user.kills + " kills. " + user.lifeTime + "\n";
         }
+        
     }
 
     public static void Open()

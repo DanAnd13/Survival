@@ -48,7 +48,7 @@ public class WeaponMovement : MonoBehaviour
             StartCoroutine(BulletLiveTime(shootingBullet));
         }
     }
-    void Update()
+    void LateUpdate()
     {
         AngleToCursor();
 
@@ -69,7 +69,7 @@ public class WeaponMovement : MonoBehaviour
     }
     IEnumerator BulletLiveTime(GameObject bullet)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.3f);
         bullet.SetActive(false);
     }
 }

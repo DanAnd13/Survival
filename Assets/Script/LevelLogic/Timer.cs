@@ -10,13 +10,16 @@ public class Timer : MonoBehaviour
     ObjectPool[] baseEnemyPool;
     ObjectPool[] bossEnemyPool;
     public GameObject[] spawn;
-    public static float delay = 3f;
-    float bossDelay = 25f;
+    public static float delay;
+    float bossDelay;
     int random;
-    int enemyNumber = 0;
+    int enemyNumber;
     void Start()
     {
         GetEnemyPool();
+        delay = 3f;
+        bossDelay = 25f;
+        enemyNumber = 0;
         StartCoroutine(GeneralTimer());
     }
 
