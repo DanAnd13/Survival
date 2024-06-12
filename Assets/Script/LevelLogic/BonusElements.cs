@@ -9,6 +9,6 @@ public class BonusElements : MonoBehaviour
     {
         baseXP,
         bossXP,
-        boost
+        HPGem
     }
 }

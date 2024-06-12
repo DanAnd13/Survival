@@ -8,7 +8,7 @@ public class WeaponMovement : MonoBehaviour
     float angle;
     public Transform barrel;
     public AudioSource gunShot;
-    Vector3 direction;
+    public static Vector3 direction;
     ObjectPool bulletPool;
     float timer;
     float reloadTime = 0.2f;
@@ -21,6 +21,7 @@ public class WeaponMovement : MonoBehaviour
     {
         Vector3 mouseScreenPosition = Input.mousePosition;
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+        mouseWorldPosition.y -= 2;
         direction = mouseWorldPosition - transform.position;
         direction.z = 0;
         angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public static float playerMoveSpeed;
+    public static float playerMaxHP;
     public static float playerHP;
     public TextMeshProUGUI playerHPUI;
     public LoseGame loseGame;
@@ -16,12 +17,13 @@ public class PlayerMovement : MonoBehaviour
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
         player = GetComponent<SpriteRenderer>();
-        playerHP = 50f;
+        playerMaxHP = 50f;
+        playerHP = playerMaxHP;
         playerMoveSpeed = 20f;
     }
     void Update()
     {
-        playerHPUI.text = "Health: " + playerHP;
+        playerHPUI.text = "Health: " + playerHP + " / " + playerMaxHP;
         InputMove();
         if(moveDir.x !=0 || moveDir.y !=0)
         {

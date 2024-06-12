@@ -7,6 +7,7 @@ public class TakedXP : MonoBehaviour
 {
     public TextMeshProUGUI XPUI;
     public GameObject LevelUpUI;
+    public GameObject AndroidUI;
     public static float radius;
     float newLevel;
     float gemXPSum;
@@ -42,13 +43,23 @@ public class TakedXP : MonoBehaviour
                 collision.gameObject.SetActive(false);
                 gemXPSum += 5f;
             }
+            else if (BonusElements.element == BonusElements.TakedElements.HPGem)
+            {
+                collision.gameObject.SetActive(false);
+                PlayerMovement.playerHP += 15f;
+                if(PlayerMovement.playerHP > PlayerMovement.playerMaxHP)
+                {
+                    PlayerMovement.playerHP = PlayerMovement.playerMaxHP;
+                }
+            }
             if (IsLevelUp())
             {
+                AndroidUI.SetActive(false);
                 LevelUpUI.SetActive(true);
                 Pause.gamePause = true;
                 CrossHair.StandartCursor();
                 gemXPSum -= newLevel;
-                newLevel += newLevel;
+                newLevel += 10f;
             }
         }
     }

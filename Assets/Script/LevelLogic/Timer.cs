@@ -43,7 +43,7 @@ public class Timer : MonoBehaviour
             {
                 enemyNumber = baseEnemy.Length - 1;
             }
-            bossDelay = Mathf.Max(10f, bossDelay - 1f);
+            bossDelay = Mathf.Max(5f, bossDelay - 1f);
         }
     }
     IEnumerator SpawnTimer(ObjectPool[] enemyPool, float delay)

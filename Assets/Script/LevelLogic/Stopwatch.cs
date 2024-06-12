@@ -26,7 +26,7 @@ public class Stopwatch : MonoBehaviour
             // Підсилення ворогів кожну хвилину
             if (elapsedTime >= nextPowerUpTime)
             {
-                Timer.delay = Mathf.Max(1f, Timer.delay - 0.2f);
+                Timer.delay = Mathf.Max(0.3f, Timer.delay - 0.2f);
                 EnemyMovement.bonusEnemyHP += 5f;
                 EnemyMovement.bonusEnemyDamage += 5f;
                 EnemyMovement.bonusEnemySpeed += 1f;

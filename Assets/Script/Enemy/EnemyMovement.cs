@@ -10,7 +10,9 @@ public class EnemyMovement : MonoBehaviour
     public float enemySpeed, enemyDamage, enemyHP;
     public static float bonusEnemySpeed, bonusEnemyDamage, bonusEnemyHP;
     ObjectPool XPgem;
+    ObjectPool GemHP;
     public GameObject baseGems;
+    public GameObject HPGems;
     public TypeOfEnemy type;
     public enum TypeOfEnemy
     {
@@ -33,6 +35,7 @@ public class EnemyMovement : MonoBehaviour
     {
         enemySprite = GetComponent<SpriteRenderer>();
         XPgem = baseGems.GetComponent<ObjectPool>();
+        GemHP = HPGems.GetComponent<ObjectPool>();
         GetTypeOfEnemy();
     }
 
@@ -50,6 +53,17 @@ public class EnemyMovement : MonoBehaviour
             }
             gameObject.SetActive(false);
             Stopwatch.kills++;
+            if (type == TypeOfEnemy.bossGoblin | type == TypeOfEnemy.bossFlyingEye |
+                type == TypeOfEnemy.bossMushroom | type == TypeOfEnemy.bossSkeleton)
+            {
+                GameObject hp = GemHP.SharedInstance.GetPooledObject();
+                if (hp != null)
+                {
+                    hp.transform.position = new Vector3(gameObject.transform.position.x - 2,
+                        gameObject.transform.position.y, gameObject.transform.position.z);
+                    hp.SetActive(true);
+                }
+            }
         }
     }
     void GetTypeOfEnemy()

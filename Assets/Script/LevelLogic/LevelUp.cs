@@ -18,6 +18,6 @@ public class LevelUp : MonoBehaviour
     }
     public void IncreasePlayerHP()
     {
-        PlayerMovement.playerHP += 5f;
+        PlayerMovement.playerMaxHP += 5f;
     }
 }
