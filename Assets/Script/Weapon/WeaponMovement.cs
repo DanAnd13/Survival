@@ -5,8 +5,9 @@ using UnityEngine;
 public class WeaponMovement : MonoBehaviour
 {
     SpriteRenderer weapon;
-    float angle;
+    public static float angle;
     public Transform barrel;
+    public GameObject bullets;
     public AudioSource gunShot;
     public static Vector3 direction;
     ObjectPool bulletPool;
@@ -15,7 +16,7 @@ public class WeaponMovement : MonoBehaviour
     void Start()
     {
         weapon = GetComponent<SpriteRenderer>();
-        bulletPool = GetComponentInChildren<ObjectPool>();
+        bulletPool = bullets.GetComponent<ObjectPool>();
     }
     public void AngleToCursor()
     {
@@ -44,6 +45,7 @@ public class WeaponMovement : MonoBehaviour
         if (shootingBullet != null)
         {
             shootingBullet.transform.position = barrel.position;
+            shootingBullet.transform.rotation = Quaternion.Euler(0, 0, angle);
             gunShot.Play();
             shootingBullet.SetActive(true);
             StartCoroutine(BulletLiveTime(shootingBullet));

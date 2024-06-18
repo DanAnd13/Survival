@@ -12,11 +12,6 @@ public class EnemyTakingDamage : MonoBehaviour
         EnemyMovement = GetComponentInParent<EnemyMovement>();
         damageAnimationPool = enemyDamageAnimation.GetComponent<ObjectPool>();
     }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject damage = damageAnimationPool.SharedInstance.GetPooledObject();
@@ -28,6 +23,10 @@ public class EnemyTakingDamage : MonoBehaviour
             collision.gameObject.SetActive(false);
 
         }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
     }
     IEnumerator DamageAnimationTime(GameObject damageAnimation)
     {

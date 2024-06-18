@@ -5,10 +5,11 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     SpriteRenderer weapon;
-    float angle;
+    public static float angle;
     public Transform barrel;
     public AudioSource gunShot;
     public static Vector3 direction;
+    public GameObject bullets;
     ObjectPool bulletPool;
     float timer;
     float reloadTime = 0.4f;
@@ -17,7 +18,7 @@ public class WeaponController : MonoBehaviour
     void Start()
     {
         weapon = GetComponent<SpriteRenderer>();
-        bulletPool = GetComponentInChildren<ObjectPool>();
+        bulletPool = bullets.GetComponent<ObjectPool>();
     }
 
     public void AngleToJoystick()
@@ -50,6 +51,7 @@ public class WeaponController : MonoBehaviour
         if (shootingBullet != null)
         {
             shootingBullet.transform.position = barrel.position;
+            shootingBullet.transform.rotation = Quaternion.Euler(0, 0, angle);
             shootingBullet.transform.rotation = transform.rotation; // Повертаємо кулю у напрямку зброї
             gunShot.Play();
             shootingBullet.SetActive(true);
